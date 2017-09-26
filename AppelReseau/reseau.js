@@ -65,42 +65,43 @@ app = {
 
             window.globalParagraph = p;
 
-            function mouseHandler(event) {
-                if (event.type === 'mouseover') {
+/*            function mouseHandler(event){
+                        if(event.type === 'mouseover') {
+                            if (event.clientX < innerWidth / 2) {
+                                removeClass(globalParagraph, 'text-red');
+                            } else {
+                                addClass(globalParagraph, 'text-red');
+                            }
+                        } else if (event.type === 'mouseout'){
+                            addClass(globalParagraph, 'text-red');
+                        }
+                    };
+
+            p.onmouseover = mouseHandler;
+            p.onmouseout = mouseHandler;*/
+        }
+
+        var allParagraphs = document.getElementsByTagName('p');
+        if(allParagraphs && allParagraphs[0]) {
+            var paragraph = allParagraphs[0];
+
+            window.globalParagraph = paragraph;
+
+            function mouseHandler(event){
+                if(event.type === 'mouseover') {
                     if (event.clientX < innerWidth / 2) {
                         removeClass(globalParagraph, 'text-red');
                     } else {
                         addClass(globalParagraph, 'text-red');
                     }
-                } else if (event.type === 'mouseout') {
+                } else if (event.type === 'mouseout'){
                     addClass(globalParagraph, 'text-red');
                 }
             };
-            p.onmouseover = mouseHandler;
-            p.onmouseout = mouseHandler;
-        }
 
-        // var allParagraphs = document.getElementsByTagName('p');
-        // if(allParagraphs && allParagraphs[0]) {
-        //     var paragraph = allParagraphs[0];
-        //
-        //     window.globalParagraph = paragraph;
-        //
-        //     function mouseHandler(event){
-        //         if(event.type === 'mouseover') {
-        //             if (event.clientX < innerWidth / 2) {
-        //                 removeClass(globalParagraph, 'text-red');
-        //             } else {
-        //                 addClass(globalParagraph, 'text-red');
-        //             }
-        //         } else if (event.type === 'mouseout'){
-        //             addClass(globalParagraph, 'text-red');
-        //         }
-        //     };
-        //
-        //     paragraph.onmouseover = mouseHandler;
-        //     paragraph.onmouseout = mouseHandler;
-        // }
+            paragraph.onmouseover = mouseHandler;
+            paragraph.onmouseout = mouseHandler;
+        }
 
     },
     removeElement : function() {

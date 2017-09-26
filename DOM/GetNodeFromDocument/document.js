@@ -1,10 +1,9 @@
 var app = {
     init: function () {
-        console.log('RetrieveElemFromDocument title: ', document.title);
+        console.log('document.title: ', document.title);
 
         document.title = 'Nouveau titre';
-
-        console.log('RetrieveElemFromDocument title: ', document.title);
+        console.log('document.title: ', document.title);
     }
 };
 
