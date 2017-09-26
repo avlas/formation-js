@@ -1,9 +1,9 @@
-console.log('avlNamespace ');
+
+// OWN NAMESPACE
+console.log('avlNamespace');
 
 (
     function (window) {
-        var avlNamespace = { };
-
         // private contacts;
         var contacts = [
                         {
@@ -16,11 +16,10 @@ console.log('avlNamespace ');
                         }
         ];
 
-        // List a = new ArrayList();
-        // a.add(contacts());
+        var avlNamespace = { };
 
-        avlNamespace.listContacts = function () {
-            return contacts;
+        avlNamespace.listContacts = function () {                         // List a = new ArrayList();
+            return contacts;                                              // a.add(contacts());
         }
 
         // definir ce que je veux exposer a l'exterieur -> public setContacts()

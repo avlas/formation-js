@@ -7,7 +7,7 @@ function Personne (nom, prenom, age) {
 
 function Stagiaire (nom, prenom, age, connaissances) {
 
-    // Personne.call(this, nom, prenom, age);
+    Personne.call(this, nom, prenom, age);
 
     this.connaissances = connaissances
 }
@@ -16,8 +16,8 @@ Stagiaire.prototype = new Personne();
 var stagiaire = new Stagiaire('mimi', 'titi', 35, 'connnnnn');
 
 console.log('stagiaire =', stagiaire);
-console.log('stagiaire instanceof Stagiaire =', stagiaire instanceof Stagiaire);
-console.log('stagiaire instanceof Personne =', stagiaire instanceof Personne);
+console.log('stagiaire instanceof Stagiaire =', stagiaire instanceof Stagiaire);            // true
+console.log('stagiaire instanceof Personne =', stagiaire instanceof Personne);              // true
 
 // -------------------------------------------------------------------------------------------------------------------
 // Stagiaire.prototype = new Personne('mimi', 'titi', 35);
