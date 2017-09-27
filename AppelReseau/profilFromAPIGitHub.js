@@ -47,7 +47,16 @@ function asyncProfilGitHub() {
     request.send();
 }
 
-function asyncProfilRepositories(window) {
+var asyncProfilRepositories = function (window) {
+    console.log('function asyncProfilRepositories');
+
+    if(window.repoResponse[0]){
+        document.getElementById('gitHubRepoName').innerHTML = window.repoResponse[0].name;
+        document.getElementById('gitHubRepoDesc').innerHTML = window.repoResponse[0].description;
+    }
+};
+
+function callAPIGitHUb(asyncProfilRepositories, window) {
     const request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
@@ -62,25 +71,28 @@ function asyncProfilRepositories(window) {
                     window.repoResponse = response;
                 }
             } else {
-                console.log("Status de la reponse: %d (%s)", this.status, this.statusText);
+                console.log("Status de la response: %d (%s)", this.status, this.statusText);
             }
         }
     };
 
     // Récupération d'un paramètre dans une URL
-    var url = new URL(window.location);
-    var profilName = url.searchParams.get('name');
-    console.log('profilName', profilName);
+    // var url = new URL(window.location);
+    // var profilName = url.searchParams.get('name');
+    // console.log('profilName LOCAL ', profilName);
+    console.log('profilName GLOBAL', window.profilName);
 
-    request.open('GET', 'https://api.github.com/users/' + profilName + '/repos', true);
+    request.open('GET', 'https://api.github.com/users/' + window.profilName + '/repos', true);
     request.send();
+
+    if (asyncProfilRepositories && typeof asyncProfilRepositories === 'function') {         // synchrone
+        setTimeout(asyncProfilRepositories, 1000, window);                                  // asynchrone
+    }
 }
 
 app = {
     init: function () {
         this.gitHubProfil();
-
-      //  this.redirectPage2();
 
         this.gitHubProfilRepositories();
     },
@@ -99,37 +111,16 @@ app = {
             sendButton.onclick = btnClickHandler;
         }
     },
-    // redirectPage2 : function() {
-    //     var gitHubImage = document.getElementById('gitHubImage');
-    //
-    //     if(gitHubImage) {
-    //         function clickHandler(event){
-    //             if(event.type === 'click') {
-    //                 window.location = 'page2.html/name=' + window.profilName;
-    //
-    //                 setTimeout(this.gitHubProfilRepositories(), 1000);
-    //             }
-    //         };
-    //
-    //         gitHubImage.onclick = clickHandler;
-    //     }
-    // },
     gitHubProfilRepositories : function() {
         var gitHubImage = document.getElementById('gitHubImage');
 
         if(gitHubImage) {
             function clickHandler(event){
                 if(event.type === 'click') {
-
-                    setTimeout( asyncProfilRepositories(window), 1000);
-
                     //Redirect page2
                     window.location = 'page2.html?name=' + window.profilName;
 
-                    if(window.repoResponse){
-                        document.getElementById('gitHubRepoName').innerHTML = window.repoResponse.name;
-                        document.getElementById('gitHubRepoDesc').innerHTML = window.repoResponse.description;
-                    }
+                    callAPIGitHUb(asyncProfilRepositories, window);
                 }
             };
 
